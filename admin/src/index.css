@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&family=Outfit:wght@100..900&family=Poppins:wght@300;400&family=Prata&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: outfit;
+}
+
+select,input,textarea{
+    border: 1px solid #fbc7fb;
+    outline-color: #9e5c7d;
+    border-radius: 4px;
+
+}
+
+
+.active{
+    background-color: #ffebf5;
+    border-color: #fbc7fb;
+   
+}
