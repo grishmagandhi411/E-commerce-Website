@@ -3,7 +3,7 @@
 import orderModel from "../Models/orderModel.js";
 import userModel from "../Models/userModels.js";
 import Stripe from 'stripe'
-import razorpay from 'razorpay'
+// import razorpay from 'razorpay'
 
 // global variables 
 const currency = "inr"
@@ -12,10 +12,10 @@ const deliveryCharge = 60
 // gateway initialize 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-const razorpayInstance = new razorpay ({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-})
+// const razorpayInstance = new razorpay ({
+//   key_id: process.env.RAZORPAY_KEY_ID,
+//   key_secret: process.env.RAZORPAY_KEY_SECRET,
+// })
 
 const placeOrder = async (req,res) => {
     
@@ -92,7 +92,6 @@ const placeOrderStripe = async (req,res) => {
             cancel_url:  `${origin}/verify?success:true&orderId=${newOrder._id}`,
             line_items,
             mode: 'payment'
-
         })
 
         res.json({success:true,session_url:session.url})

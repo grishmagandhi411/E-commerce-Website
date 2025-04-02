@@ -6,7 +6,7 @@ import { assets } from "../assets/frontend_assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
-  const { productID} = useParams();
+  const { productId } = useParams();
   const { products,currency ,addToCart} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
@@ -14,11 +14,11 @@ const Product = () => {
 
   const fetchProductData = async () => {
     products.map((item) => {
-      if (item.id === productID) {
+      if (item._id === productId) {
         setProductData(item);
-        // console.log(item);
+        console.log(item);
         setImage(item.image[0]);
-        // console.log(item);
+        console.log(item);
         return null;
       }
     });
@@ -26,7 +26,7 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
-  }, [productID]);
+  }, [productId]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -62,7 +62,7 @@ const Product = () => {
           </div>
           <p className="mt-5 text-3xl font-medium">{currency}{productData.price}</p>
           <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
-          <div className="flex flex-col gap-4 my8">
+          <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">{productData.sizes.map((item,index)=>(
               <button onClick={()=>setSize(item)} key={index} className={`border border-gray-100 py-2 px-4 ${item === size ? 'bg-orange-500 ' : ""}`}>{item}</button>
@@ -75,6 +75,9 @@ const Product = () => {
                     <p>Cash on delivery is available on this products.</p>
                     <p>Easy return and exchange policy within 7 days.</p>
                   </div>
+                  </div>
+                  </div>
+                  
 
                 {/* description & Review  */}
                 <div className="mt-20">
@@ -94,8 +97,8 @@ const Product = () => {
                <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
           
         </div>
-      </div>
-    </div>
+     
+    
   ) : (
     <div className="opacity-0"></div>
   );

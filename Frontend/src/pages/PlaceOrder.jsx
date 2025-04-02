@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ShopContext } from "../context/shopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { currency } from "../../../admin/src/App";
+// import { currency } from "../../../admin/src/App";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
@@ -100,7 +100,7 @@ const PlaceOrder = () => {
             orderData,
             { headers: { token } }
           );
-          console.log(response.data);
+          // console.log(response.data);
 
           if (response.data.success) {
             setCartItems({});
