@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../Models/productModel.js";
 
+// FUnction for add product 
 const addProduct = async (req, res) => {
   try {
     const {
@@ -25,7 +26,7 @@ const addProduct = async (req, res) => {
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
         let result = await cloudinary.uploader.upload(item.path, {
-          resource_type: "image",
+          resource_type: "image" 
         });
         return result.secure_url;
       })
@@ -56,6 +57,7 @@ const addProduct = async (req, res) => {
   }
 };
 
+// Function for list products 
 const listProducts = async (req, res) => {
     try {
         const products = await productModel.find({});
@@ -68,6 +70,7 @@ const listProducts = async (req, res) => {
     }
 };
 
+// FUnction for removing product
 const removeProduct = async (req, res) => {
     try {
         await productModel.findByIdAndDelete(req.body.id);
@@ -79,6 +82,7 @@ const removeProduct = async (req, res) => {
     }
 };
 
+// Function for single product info 
 const singleProduct = async (req, res) => {
     try {
         const {productId} = req.body

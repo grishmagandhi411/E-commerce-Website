@@ -20,6 +20,7 @@ const PlaceOrder = () => {
     delivery_fee,
     products,
   } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -29,7 +30,7 @@ const PlaceOrder = () => {
     state: "",
     zipcode: "",
     country: "",
-    phone: "",
+    phone: ""   
   });
 
   const onChangeHandler = (event) => {
@@ -77,7 +78,7 @@ const PlaceOrder = () => {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
             const itemInfo = structuredClone(
-              products.find((product) => product._id === items)
+              products.find (product => product._id === items)
             );
             if (itemInfo) {
               itemInfo.size = item;
@@ -94,6 +95,8 @@ const PlaceOrder = () => {
       };
 
       switch (method) {
+        
+        // API calls for "COD "
         case "cod":
           const response = await axios.post(
             backendUrl + "/api/order/place",
@@ -149,7 +152,7 @@ const PlaceOrder = () => {
       onSubmit={onSubmitHandler}
       className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
     >
-      {/* left side  */}
+      {/* ----------left Side----------  */}
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3 ">
           <Title Text1={"DELIVERY"} Text2={"INFORMATION"} />
@@ -243,7 +246,7 @@ const PlaceOrder = () => {
         />
       </div>
 
-      {/* Right side  */}
+      {/* ----------Right Side---------  */}
       <div className="mt-8">
         <div className="mt-8 min-w-80">
           <CartTotal />
@@ -251,8 +254,8 @@ const PlaceOrder = () => {
 
         <div className="mt-12">
           <Title Text1={"PAYMENT"} Text2={"METHOD"} />
-          {/* payment method  */}
 
+          {/* ------------Payment Method Selection--------- */}
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
               onClick={() => setMethod("stripe")}

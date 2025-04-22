@@ -7,7 +7,8 @@ import axios from "axios";
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
-  const currency = "$";
+
+  const currency = '$';
   const delivery_fee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
@@ -19,6 +20,7 @@ const ShopContextProvider = (props) => {
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
+
     if (!size) {
       toast.error("please select a product size");
       return;
@@ -72,6 +74,7 @@ const ShopContextProvider = (props) => {
   };
 
   const updateQuantity = async (itemId, size, quantity) => {
+    
     let cartData = structuredClone(cartItems);
 
     cartData[itemId][size] = quantity;

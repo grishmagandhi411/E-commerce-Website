@@ -6,9 +6,8 @@ import { assets } from "../assets/frontend_assets/assets";
 import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity , navigate} =
-    useContext(ShopContext);
-
+  const { products, currency, cartItems, updateQuantity , navigate} =  useContext(ShopContext);
+   
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const Cart = () => {
                     : updateQuantity(
                         item._id,
                         item.size,
-                        number(e.target.value)
+                        Number(e.target.value)
                       )
                 }
                 className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"

@@ -1,41 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/shopContext";
 import Title from "../components/Title";
+import axios from "axios";
 
 const Orders = () => {
-  const { backendUrl,token , currency } = useContext(ShopContext);
+  const { backendUrl, token, currency } = useContext(ShopContext);
 
-  const [orderData,setorderData] = useState([])
+  const [orderData, setorderData] = useState([]);
+  let allOrdersItem = [];
 
   const loadOrderData = async () => {
     try {
-      if(!token){
-        return null
+      if (!token) {
+        return null;
       }
 
-      const response = await axios.post(backendUrl + '/api/order/userorders', {} , {Headers:{token}})
-      console.log(response.data);
-      if(response.data.success){
-        let allOrdersItem = []
-        response.data.orders.map((order)=>{
-             order.items.map((item)=>{
-              item['status'] = order.status
-              item['payment'] = order.payment
-              item['paymentMethod'] = order.paymentMethod
-              item['date'] = order.date
-              allOrdersItem.push(item)
-             })
-        })
-      }setorderData(allOrdersItem.reverse());
-      
-    } catch (error) {
-      
-    }
-  }
+      const response = await axios.post(
+        backendUrl + "/api/order/userorders",
+        {},
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        response.data.orders.map((order) => {
+          order.items.map((item) => {
+            console.log(item);
+            item["status"] = order.status;
+            item["payment"] = order.payment;
+            item["paymentMethod"] = order.paymentMethod;
+            item["date"] = order.date;
+            allOrdersItem.push(item);
+          });
+        });
+      }
 
-  useEffect(()=>{
-    loadOrderData()
-  },[token])
+      setorderData(allOrdersItem.reverse());
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadOrderData();
+  }, [token]);
 
   return (
     <div className="border-t pt-16">
@@ -62,10 +66,14 @@ const Orders = () => {
                   <p>Size: {item.size}</p>
                 </div>
                 <p className="mt-1">
-                  Date: <span className="text-gray-400">{new Date(item.date).toDateString()}</span>
+                  Date:{" "}
+                  <span className="text-gray-400">
+                    {new Date(item.date).toDateString()}
+                  </span>
                 </p>
                 <p className="mt-1">
-                  payment: <span className="text-gray-400">{item.paymentMethod}</span>
+                  payment:{" "}
+                  <span className="text-gray-400">{item.paymentMethod}</span>
                 </p>
               </div>
             </div>
@@ -81,7 +89,10 @@ const Orders = () => {
                 <p className="text-sm sm:text-base text-gray-400">#123456789</p>
               </div>
 
-              <button onClick={loadOrderData} className="border py-2 px-4 text-sm rounded-sm font-medium">
+              <button
+                onClick={loadOrderData}
+                className="border py-2 px-4 text-sm rounded-sm font-medium"
+              >
                 Track Order
               </button>
             </div>

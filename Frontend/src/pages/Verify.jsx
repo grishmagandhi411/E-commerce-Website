@@ -14,6 +14,7 @@ const Verify = () => {
 
  const verifyPayment = async() => {
     try {
+        
         if(!token){
             return null;
         }

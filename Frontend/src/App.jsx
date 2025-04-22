@@ -12,14 +12,15 @@ import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify";
-
+import ScrollToTop from "./components/scrollToTop";
 
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[5vw] lg:px-[5vw]">
+      <ScrollToTop />
       <ToastContainer />
       <Navbar />
       <SearchBar />

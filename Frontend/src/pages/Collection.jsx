@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItems from "../components/ProductItems";
 
 const Collection = () => {
-  const { products , search , showSearch } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -32,7 +32,9 @@ const Collection = () => {
     let productsCopy = products.slice();
 
     if (showSearch && search) {
-      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+      productsCopy = productsCopy.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
     if (category.length > 0) {
@@ -43,7 +45,7 @@ const Collection = () => {
 
     if (subCategory.length > 0) {
       productsCopy = productsCopy.filter((item) =>
-        subCategory.includes(item.subCategory)
+        subCategory.includes(item.subcategory)
       );
     }
 
@@ -55,11 +57,11 @@ const Collection = () => {
 
     switch (sortType) {
       case "low-high":
-        setFilterProducts(fpCopy.sort((a, b) => (a.price - b.price)));
+        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
         break;
 
       case "high-low":
-        setFilterProducts(fpCopy.sort((a, b) => (b.price - a.price)));
+        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
         break;
 
       default:
@@ -73,20 +75,20 @@ const Collection = () => {
   // }, []);
 
   // useEffect(()=>{
-  //   console.log(category);
-  // },[category])
+  //   console.log(subCategory);
+  // },[subCategory])
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory , search , showSearch, products]);
+  }, [category, subCategory, search, showSearch, products]);
 
-  useEffect(()=> {
+  useEffect(() => {
     sortProduct();
-  },[sortType]);
+  }, [sortType]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
-      {/* filter  */}
+      {/* Filter Options Left Side */}
       <div className="min-w-60">
         <p
           onClick={() => setShowFilter(!showFilter)}
@@ -99,7 +101,7 @@ const Collection = () => {
             alt=""
           />
         </p>
-        {/* category */}
+        {/* Category Filter */}
         <div
           className={`border border-gray-300 pl-5 py-3 mt-6 ${
             showFilter ? "" : "hidden"
@@ -129,21 +131,22 @@ const Collection = () => {
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Kids"}
+                value={"Kidswear"}
                 onChange={toggleCategory}
               />
               Kids
             </p>
           </div>
         </div>
-        {/* subcategory */}
+
+        {/* Subcategory Filter */}
 
         <div
           className={`border border-gray-300 pl-5 py-3 my-5 ${
             showFilter ? "" : "hidden"
           } sm:block`}
         >
-          <p className="mb-3 text-sm font-medium"> TYPE</p>
+          <p className="mb-3 text-sm font-medium">TYPE</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
               <input
@@ -151,7 +154,7 @@ const Collection = () => {
                 className="w-3"
                 value={"Topwear"}
                 onChange={toggleSubCategory}
-              />{" "}
+              />
               Top Wear
             </p>
             <p className="flex gap-2">
@@ -160,7 +163,7 @@ const Collection = () => {
                 className="w-3"
                 value={"Bottomwear"}
                 onChange={toggleSubCategory}
-              />{" "}
+              />
               Bottom Wear
             </p>
             <p className="flex gap-2">
@@ -169,21 +172,23 @@ const Collection = () => {
                 className="w-3"
                 value={"Winterwear"}
                 onChange={toggleSubCategory}
-              />{" "}
+              />
               Winter Wear
             </p>
           </div>
         </div>
       </div>
 
-      {/* Rightside  */}
+      {/* Right Side */}
 
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title Text1={"ALL"} Text2={"COLLECTIONS"} />
-
           {/* Product Sort  */}
-          <select onChange={(e)=>setSortType(e.target.value)} className="border-2 border-gray-300 text-sm px-2 ">
+          <select
+            onChange={(e) => setSortType(e.target.value)}
+            className="border-2 border-gray-300 text-sm px-2 "
+          >
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>

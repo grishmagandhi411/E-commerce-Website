@@ -34,7 +34,7 @@ try {
   }
 } catch (error) {
   console.log(error);
-  toast.error(error.message);
+  toast.error(response.data.message);
   
 }
   }
@@ -58,7 +58,7 @@ try {
                   if (index === order.items.length - 1) {
                     return <p className='py-0.5' key={index}>{item.name} X {item.quantity} <span>{item.size}</span> </p>
                   }else{
-                    return <p className='py-0.5' key={index}>{item.name} X {item.quantity} <span>{item.size}</span> </p>
+                    return <p className='py-0.5' key={index}>{item.name} X {item.quantity} <span>{item.size}</span>,   </p>
                   }
                 }
                 )}
@@ -74,7 +74,7 @@ try {
                 <p className='text-sm sm:text-[15px]'>Items: {order.items.length}</p>
                 <p className='mt-3'>Method: {order.paymentMethod}</p>
                 <p>Payment: {order.payment ? 'Done' : 'Pending'}</p>
-                <p>Date: {new Date(order.date).toLocaleDateString}</p>
+                <p>Date: {new Date(order.date).toLocaleDateString()}</p>
                </div>
                <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
               <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className='p-2 font-semibold'>
