@@ -1,6 +1,41 @@
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../Models/productModel.js";
 
+const decrementQuantity = async (req, res) => {
+  const { productId } = req.params;
+  const { size, quantity } = req.body;
+
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const sizeIndex = product.sizes.findIndex((item) => item.size === size);
+
+    if (sizeIndex === -1) {
+      return res.status(400).json({ message: "Size not found" });
+    }
+
+    const selectedSize = product.sizes[sizeIndex];
+
+    if (selectedSize.quantity < quantity) {
+      return res.status(400).json({ message: "Not enough stock" });
+    }
+
+    // Decrease the stock by the selected quantity
+    product.sizes[sizeIndex].quantity -= quantity;
+
+    await product.save();
+    return res.status(200).json({ message: "Stock updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+
 // FUnction for add product 
 const addProduct = async (req, res) => {
   try {
@@ -96,4 +131,4 @@ const singleProduct = async (req, res) => {
     }
 };
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+export { addProduct, listProducts, removeProduct, singleProduct , decrementQuantity};

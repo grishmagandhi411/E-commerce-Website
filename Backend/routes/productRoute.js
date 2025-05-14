@@ -2,6 +2,8 @@ import express from 'express'
 import {addProduct , listProducts , removeProduct , singleProduct} from '..//controllers/productController.js'
 import upload from '../Middleware/multer.js';
 import adminAuth from '../Middleware/adminAuth.js';
+import { decrementQuantity } from '../controllers/cartController.js';
+
 
 const productRouter = express.Router();
 
@@ -9,5 +11,7 @@ productRouter.post('/add',adminAuth,upload.fields([{name:'image1',maxCount:1},{n
 productRouter.post('/remove',adminAuth,removeProduct)
 productRouter.post('/single',singleProduct)
 productRouter.get('/list',listProducts)
+// Route to handle the stock decrement when an item is added to the cart
+productRouter.patch("/decrement-quantity/:productId", decrementQuantity);
 
 export default productRouter

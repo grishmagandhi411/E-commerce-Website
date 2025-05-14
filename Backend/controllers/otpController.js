@@ -7,7 +7,7 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 export const sendOtp = async (req, res) => {
   const { email } = req.body;
   const otp = generateOTP();
-  const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes validity
+  const expiresAt = Date.now() + 5 * 60 * 1000; 
 
   otps[email] = { otp, expiresAt };
 

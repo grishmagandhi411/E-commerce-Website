@@ -1,29 +1,26 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import crypto from 'crypto';
-import nodemailer from 'nodemailer';
 import { sendOtp, verifyOtp } from "./controllers/otpController.js";
 
-
+dotenv.config();
 
 // App config
 const app = express();
 const port = process.env.PORT || 5000;
 connectDB();
 connectCloudinary();
-dotenv.config();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-
 
 // Api endpoint
 app.use("/api/user", userRouter);
