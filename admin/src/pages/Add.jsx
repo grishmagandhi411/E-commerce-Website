@@ -18,6 +18,27 @@ const Add = ({token}) => {
   const [bestseller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
+   const sizeOptions = ["S", "M", "L", "XL", "XXL"];
+
+  const toggleSize = (size) => {
+    setSizes((prev) => {
+      const found = prev.find((item) => item.size === size);
+      if (found) {
+        return prev.filter((item) => item.size !== size);
+      } else {
+        return [...prev, { size, quantity: 0 }];
+      }
+    });
+  };
+
+  const updateQuantity = (size, quantity) => {
+    setSizes((prev) =>
+      prev.map((item) =>
+        item.size === size ? { ...item, quantity: Number(quantity) } : item
+      )
+    );
+  };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -50,6 +71,7 @@ const Add = ({token}) => {
          setImage3(false)
          setImage4(false)
          setPrice('')
+         setSizes([])
         }
         else
         {
@@ -186,87 +208,35 @@ const Add = ({token}) => {
       </div>
 
       <div>
-        <p className="mb-2">Product Sizes</p>
+        <p className="mb-2">Product Sizes With Quantity</p>
         <div className="flex gap-3">
-          <div
-            onClick={() =>
-              setSizes((prev) =>
-                prev.includes("S") ? prev.filter(item => item !== "S") : [...prev, "S"]
-              )
-            }
-          >
-            <p
-              className={` ${
-                sizes.includes("S") ? "bg-pink-100" : "bg-slate-200"
-              } px-3 py-1 cursor-pointer`}
-            >
-              S
-            </p>
-          </div>
-          <div
-            onClick={() =>
-              setSizes((prev) =>
-                prev.includes("M") ? prev.filter( item => item !== "M") : [...prev, "M"]
-              )
-            }
-          >
-            <p
-              className={` ${
-                sizes.includes("M") ? "bg-pink-100" : "bg-slate-200"
-              } px-3 py-1 cursor-pointer`}
-            >
-              M
-            </p>
-          </div>
-          <div
-            onClick={() =>
-              setSizes((prev) =>
-                prev.includes("L") ? prev.filter(item => item !== "L") : [...prev, "L"]
-              )
-            }
-          >
-            <p
-              className={` ${
-                sizes.includes("L") ? "bg-pink-100" : "bg-slate-200"
-              } px-3 py-1 cursor-pointer`}
-            >
-              L
-            </p>
-          </div>
-          <div
-            onClick={() =>
-              setSizes((prev) =>
-                prev.includes("XL")
-                  ? prev.filter(item => item !== "XL")
-                  : [...prev, "XL"]
-              )
-            }
-          >
-            <p
-              className={` ${
-                sizes.includes("XL") ? "bg-pink-100" : "bg-slate-200"
-              } px-3 py-1 cursor-pointer`}
-            >
-              XL
-            </p>
-          </div>
-          <div
-            onClick={() =>
-              setSizes((prev) =>
-                prev.includes("XXL")
-                  ? prev.filter(item => item !== "XXL")
-                  : [...prev, "XXL"]
-              )
-            }
-          >
-            <p
-              className={` ${
-                sizes.includes("XXL") ? "bg-pink-100" : "bg-slate-200"
-              } px-3 py-1 cursor-pointer`}
-            >
-              XXL
-            </p>
-          </div>
+
+           {sizeOptions.map((size) => {
+            const selected = sizes.find((item) => item.size === size);
+            return (
+              <div key={size} className="flex items-center gap-3">
+                <div
+                  onClick={() => toggleSize(size)}
+                  className={`cursor-pointer px-3 py-1 ${
+                    selected ? "bg-pink-100" : "bg-slate-200"
+                  }`}
+                >
+                  {size}
+                </div>
+                {selected && (
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="Quantity"
+                    value={selected.quantity}
+                    onChange={(e) => updateQuantity(size, e.target.value)}
+                    className="px-3 py-1 w-24 border"
+                    required
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 

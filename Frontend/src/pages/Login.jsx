@@ -4,6 +4,7 @@ import { ShopContext } from '../context/shopContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+
 const Login = () => {
      
   const [currentState, setCurrentState] = useState('Login');
@@ -78,6 +79,7 @@ const Login = () => {
       }
      </div>
      <button  className='bg-black text-white font-light px-8 py-2 mt-4'>{currentState === 'Login' ? 'Sign In' : 'Sign Up'} </button>
+   
            
     </form>
   )

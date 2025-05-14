@@ -7,22 +7,33 @@ import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
+import { sendOtp, verifyOtp } from "./controllers/otpController.js";
+
+
 
 // App config
 const app = express();
 const port = process.env.PORT || 5000;
 connectDB();
 connectCloudinary();
+dotenv.config();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
+
 
 // Api endpoint
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
+
+// Routes
+app.post('/send-otp', sendOtp);
+app.post('/verify-otp', verifyOtp);
 
 app.get("/", (req, res) => {
   res.send("API is running successfully");

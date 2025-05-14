@@ -31,6 +31,8 @@ const placeOrder = async (req, res) => {
       date: Date.now(),
     };
 
+   
+
     const newOrder = new orderModel(orderData);
     await newOrder.save();
 
