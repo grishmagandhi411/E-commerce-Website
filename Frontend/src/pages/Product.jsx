@@ -68,7 +68,9 @@ const Product = () => {
             <div className="flex gap-2">{productData.sizes && productData.sizes.length > 0 ? (
       productData.sizes.map((item, index) => (
         <button
-          onClick={() => setSize(item.size)}
+          onClick={() => setSize(item.size
+            
+          )}
           key={index}
           disabled={item.quantity === 0}
           className={`border border-gray-100 py-2 px-4 ${
