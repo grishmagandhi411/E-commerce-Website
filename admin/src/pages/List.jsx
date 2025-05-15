@@ -84,19 +84,12 @@ const List = ({ token }) => {
                 .join(", ")}
             </p> */}
 
-            {item.sizes?.filter((sizeObj) => sizeObj.quantity > 0).length >
-            0 ? (
-              item.sizes
-                .filter((sizeObj) => sizeObj.quantity > 0)
-                .map((sizeObj, i) => (
-                  <span key={i}>
-                    {sizeObj.size}: {sizeObj.quantity}
-                  </span>
-                ))
-            ) : (
-              <span className="text-gray-400 text-sm">No sizes available</span>
-            )}
-            
+            {item.sizes.map((sizeObj, i) => (
+              <span key={i}>
+                {sizeObj.size}: {sizeObj.quantity}
+              </span>
+            ))}
+
             {/* <p>
       {item.sizes?.length > 0
         ? item.sizes.map((size) => `${size.size}: ${size.quantity}`).join(", ")
